@@ -165,6 +165,17 @@
   const wrap = document.getElementById('pixelFace');
   if (!wrap) return;
 
+  // If the element is an <img>, use the provided image instead of drawing a canvas.
+  if (wrap.tagName && wrap.tagName.toLowerCase() === 'img') {
+    // Ensure image is pixelated and sized similarly to the generated canvas
+    wrap.style.imageRendering = 'pixelated';
+    if (!wrap.getAttribute('src')) wrap.src = 'assets/img/pixelMe.png';
+    // set a sensible display size (matches previous canvas SIZE)
+    wrap.width = wrap.width || 200;
+    wrap.height = wrap.height || 200;
+    return;
+  }
+
   // 16×16 grid, 0=transparent, colour keys
   const P = '#264653'; // dark (outline / hair)
   const S = '#f5f0e8'; // skin
